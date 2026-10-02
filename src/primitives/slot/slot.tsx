@@ -15,7 +15,12 @@ import {
   type ViewProps as RNViewProps,
 } from 'react-native';
 import type { AnyProps, ImageSlotProps } from './types';
-import { composeRefs, isTextChildren, mergeProps } from './utils';
+import {
+  composeRefs,
+  getElementRef,
+  isTextChildren,
+  mergeProps,
+} from './utils';
 
 // --------------------------------------------------
 
@@ -36,8 +41,8 @@ const Pressable = forwardRef<
   >(isTextChildren(children) ? <></> : children, {
     ...mergeProps(pressableSlotProps, children.props as AnyProps),
     ref: forwardedRef
-      ? composeRefs(forwardedRef, (children as any).ref)
-      : (children as any).ref,
+      ? composeRefs(forwardedRef, getElementRef(children))
+      : getElementRef(children),
   });
 });
 
@@ -60,8 +65,8 @@ const View = forwardRef<React.ComponentRef<typeof RNView>, RNViewProps>(
     >(isTextChildren(children) ? <></> : children, {
       ...mergeProps(viewSlotProps, children.props as AnyProps),
       ref: forwardedRef
-        ? composeRefs(forwardedRef, (children as any).ref)
-        : (children as any).ref,
+        ? composeRefs(forwardedRef, getElementRef(children))
+        : getElementRef(children),
     });
   }
 );
@@ -85,8 +90,8 @@ const Text = forwardRef<ComponentRef<typeof RNText>, RNTextProps>(
     >(isTextChildren(children) ? <></> : children, {
       ...mergeProps(textSlotProps, children.props as AnyProps),
       ref: forwardedRef
-        ? composeRefs(forwardedRef, (children as any).ref)
-        : (children as any).ref,
+        ? composeRefs(forwardedRef, getElementRef(children))
+        : getElementRef(children),
     });
   }
 );
@@ -110,8 +115,8 @@ const Image = forwardRef<ComponentRef<typeof RNImage>, ImageSlotProps>(
     >(isTextChildren(children) ? <></> : children, {
       ...mergeProps(imageSlotProps, children.props as AnyProps),
       ref: forwardedRef
-        ? composeRefs(forwardedRef, (children as any).ref)
-        : (children as any).ref,
+        ? composeRefs(forwardedRef, getElementRef(children))
+        : getElementRef(children),
     });
   }
 );

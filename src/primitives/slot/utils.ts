@@ -28,6 +28,20 @@ export function composeRefs<T>(...refs: (React.Ref<T> | undefined)[]) {
 
 // --------------------------------------------------
 
+/**
+ * Reads the ref of a React element.
+ *
+ * In React 19 `ref` is a regular prop, and accessing `element.ref` is
+ * deprecated and logs a warning in development.
+ */
+export function getElementRef<T>(
+  element: React.ReactElement
+): React.Ref<T> | undefined {
+  return (element.props as { ref?: React.Ref<T> }).ref;
+}
+
+// --------------------------------------------------
+
 export function mergeProps(slotProps: AnyProps, childProps: AnyProps) {
   // all child props should override
   const overrideProps = { ...childProps };
