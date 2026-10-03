@@ -79,6 +79,7 @@ const Skeleton: React.FC<SkeletonProps> = (props) => {
     isAnimatedStyleActive = true,
     className,
     style,
+    onLayout,
     ...restProps
   } = props;
 
@@ -106,8 +107,11 @@ const Skeleton: React.FC<SkeletonProps> = (props) => {
         setComponentWidth(width);
         setOffset(x);
       }
+      if (typeof onLayout === 'function') {
+        onLayout(event);
+      }
     },
-    [componentWidth]
+    [componentWidth, onLayout]
   );
 
   const animationContextValue = useMemo(

@@ -226,6 +226,7 @@ const ToastRoot = forwardRef<ViewRef, ToastRootProps>((props, ref) => {
               pointerEvents="none"
               className={cn(rootClassName, 'absolute opacity-0')}
               style={[toastStyleSheet.root, style]}
+              {...restProps}
               onLayout={(event) => {
                 const measuredHeight = event.nativeEvent.layout.height;
                 heights.modify((value) => {
@@ -233,7 +234,6 @@ const ToastRoot = forwardRef<ViewRef, ToastRootProps>((props, ref) => {
                   return { ...value, [id]: measuredHeight };
                 });
               }}
-              {...restProps}
             >
               {children}
             </AnimatedToastRoot>

@@ -79,6 +79,7 @@ const Switch = forwardRef<SwitchPrimitivesTypes.RootRef, SwitchProps>(
       isAnimatedStyleActive = true,
       onPressIn,
       onPressOut,
+      onLayout,
       background,
       ...restProps
     } = props;
@@ -183,6 +184,7 @@ const Switch = forwardRef<SwitchPrimitivesTypes.RootRef, SwitchProps>(
               onPressOut={handlePressOut}
               onLayout={(e) => {
                 contentContainerWidth.set(e.nativeEvent.layout.width);
+                onLayout?.(e);
               }}
               {...restProps}
             >

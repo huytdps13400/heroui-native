@@ -301,6 +301,7 @@ const TabsTrigger = forwardRef<
     isDisabled = false,
     className,
     style,
+    onLayout,
     ...restProps
   } = props;
   const { setMeasurements } = useTabsMeasurements();
@@ -314,8 +315,9 @@ const TabsTrigger = forwardRef<
     (event: LayoutChangeEvent) => {
       const { width, height, x } = event.nativeEvent.layout;
       setMeasurements(value, { width, height, x });
+      onLayout?.(event);
     },
-    [value, setMeasurements]
+    [value, setMeasurements, onLayout]
   );
 
   const renderProps: TabsTriggerRenderProps = {
