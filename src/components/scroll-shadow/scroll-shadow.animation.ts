@@ -83,6 +83,7 @@ export function useScrollShadowRootAnimation(options: {
       return withTiming(0, { duration: SHADOW_EXIT_ANIMATION_DURATION });
     if (visibility === 'bottom' || visibility === 'right')
       return withTiming(0, { duration: SHADOW_EXIT_ANIMATION_DURATION });
+    if (visibility === 'both') return topOpacityValue[1];
 
     return interpolate(
       scrollOffset.get(),
@@ -103,6 +104,7 @@ export function useScrollShadowRootAnimation(options: {
       return withTiming(0, { duration: SHADOW_EXIT_ANIMATION_DURATION });
     if (visibility === 'top' || visibility === 'left')
       return withTiming(0, { duration: SHADOW_EXIT_ANIMATION_DURATION });
+    if (visibility === 'both') return bottomOpacityValue[0];
 
     return interpolate(
       scrollOffset.get() + containerSize.get(),
