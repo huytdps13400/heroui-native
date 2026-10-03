@@ -40,7 +40,8 @@ const SkeletonGroupRoot: React.FC<PropsWithChildren<SkeletonGroupRootProps>> = (
     [restProps]
   );
 
-  if (isSkeletonOnly && !restProps.isLoading) {
+  // `isLoading` defaults to true, so only an explicit `false` hides the group
+  if (isSkeletonOnly && restProps.isLoading === false) {
     return null;
   }
 
