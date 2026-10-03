@@ -2,7 +2,10 @@ import { forwardRef } from 'react';
 import type { PressableRef, TextRef } from '../../helpers/internal/types';
 import { Button } from '../button';
 import type { ButtonLabelProps } from '../button/button.types';
-import { resolveAnimationObject } from '../button/button.utils';
+import {
+  isAnimationDisabled,
+  resolveAnimationObject,
+} from '../button/button.utils';
 import { DISPLAY_NAME } from './link-button.constants';
 import linkButtonClassNames from './link-button.styles';
 import type { LinkButtonProps } from './link-button.types';
@@ -15,10 +18,17 @@ const LinkButtonRoot = forwardRef<PressableRef, LinkButtonProps>(
 
     const rootClassName = linkButtonClassNames.root({ className });
 
-    const resolvedAnimation = {
-      ...resolveAnimationObject(animation),
-      highlight: false,
-    };
+    /**
+     * The highlight is always off for links. A fully disabled animation
+     * (`false`, `'disabled'`, `'disable-all'`) is forwarded as-is so Button
+     * still turns off all feedback.
+     */
+    const resolvedAnimation = isAnimationDisabled(animation)
+      ? animation
+      : {
+          ...resolveAnimationObject(animation),
+          highlight: false,
+        };
 
     return (
       <Button
