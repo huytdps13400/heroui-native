@@ -43,8 +43,10 @@ const FieldErrorRoot = forwardRef<ViewRef, FieldErrorRootProps>(
       className: [className, classNames?.container],
     });
 
+    const { className: textPropsClassName, ...restTextProps } = textProps ?? {};
+
     const textClassName = text({
-      className: [classNames?.text, textProps?.className],
+      className: [classNames?.text, textPropsClassName],
     });
 
     const { entering, exiting } = useFieldErrorRootAnimation({ animation });
@@ -53,7 +55,11 @@ const FieldErrorRoot = forwardRef<ViewRef, FieldErrorRootProps>(
 
     const stringifiedChildren = childrenToString(children);
     const renderedChildren = stringifiedChildren ? (
-      <HeroText className={textClassName} style={styles?.text} {...textProps}>
+      <HeroText
+        className={textClassName}
+        style={styles?.text}
+        {...restTextProps}
+      >
         {stringifiedChildren}
       </HeroText>
     ) : (

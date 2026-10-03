@@ -282,8 +282,10 @@ const AvatarFallback = forwardRef<AvatarFallbackRef, AvatarFallbackProps>(
       className: [className, classNames?.container],
     });
 
+    const { className: textPropsClassName, ...restTextProps } = textProps ?? {};
+
     const fallbackTextClassName = text({
-      className: [classNames?.text, textProps?.className],
+      className: [classNames?.text, textPropsClassName],
     });
 
     const { entering } = useAvatarFallbackAnimation({
@@ -306,7 +308,7 @@ const AvatarFallback = forwardRef<AvatarFallbackRef, AvatarFallbackProps>(
               className={fallbackTextClassName}
               style={styles?.text}
               maxFontSizeMultiplier={1.4}
-              {...textProps}
+              {...restTextProps}
             >
               {stringifiedChildren}
             </HeroText>
