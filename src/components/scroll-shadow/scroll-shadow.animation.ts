@@ -73,16 +73,21 @@ export function useScrollShadowRootAnimation(options: {
   });
 
   const topShadowOpacity = useDerivedValue(() => {
+    const isHidden =
+      !isEnabled ||
+      visibility === 'none' ||
+      visibility === 'bottom' ||
+      visibility === 'right';
+
+    if (isHidden) {
+      return isAnimationDisabledValue
+        ? 0
+        : withTiming(0, { duration: SHADOW_EXIT_ANIMATION_DURATION });
+    }
+
     if (isAnimationDisabledValue) {
       return 1;
     }
-
-    if (!isEnabled)
-      return withTiming(0, { duration: SHADOW_EXIT_ANIMATION_DURATION });
-    if (visibility === 'none')
-      return withTiming(0, { duration: SHADOW_EXIT_ANIMATION_DURATION });
-    if (visibility === 'bottom' || visibility === 'right')
-      return withTiming(0, { duration: SHADOW_EXIT_ANIMATION_DURATION });
 
     return interpolate(
       scrollOffset.get(),
@@ -93,16 +98,21 @@ export function useScrollShadowRootAnimation(options: {
   });
 
   const bottomShadowOpacity = useDerivedValue(() => {
+    const isHidden =
+      !isEnabled ||
+      visibility === 'none' ||
+      visibility === 'top' ||
+      visibility === 'left';
+
+    if (isHidden) {
+      return isAnimationDisabledValue
+        ? 0
+        : withTiming(0, { duration: SHADOW_EXIT_ANIMATION_DURATION });
+    }
+
     if (isAnimationDisabledValue) {
       return 1;
     }
-
-    if (!isEnabled)
-      return withTiming(0, { duration: SHADOW_EXIT_ANIMATION_DURATION });
-    if (visibility === 'none')
-      return withTiming(0, { duration: SHADOW_EXIT_ANIMATION_DURATION });
-    if (visibility === 'top' || visibility === 'left')
-      return withTiming(0, { duration: SHADOW_EXIT_ANIMATION_DURATION });
 
     return interpolate(
       scrollOffset.get() + containerSize.get(),
