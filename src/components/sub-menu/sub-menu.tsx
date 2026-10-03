@@ -166,7 +166,7 @@ const RootContentContainer: FC<
     className?: string;
     style?: StyleProp<ViewStyle>;
   }>
-> = ({ children, animation, background, className }) => {
+> = ({ children, animation, background, className, style }) => {
   const [isMounted, setIsMounted] = useState(false);
   const { isOpen, onOpenChange, nativeID } = useSubMenu();
   const { openSubMenuId, openSubMenu, closeSubMenu } = useMenu();
@@ -229,7 +229,10 @@ const RootContentContainer: FC<
       style={rOuterContainerStyle}
     >
       {isMounted ? (
-        <Animated.View className={rootClassName} style={rInnerContentStyle}>
+        <Animated.View
+          className={rootClassName}
+          style={[rInnerContentStyle, style]}
+        >
           {backgroundElement}
           {children}
         </Animated.View>
