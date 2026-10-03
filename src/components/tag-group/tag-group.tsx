@@ -108,6 +108,8 @@ const TagGroupRoot = forwardRef<ViewRef, TagGroupProps>((props, ref) => {
             className={rootClassName}
             style={style}
             isDisabled={isDisabled}
+            isInvalid={isInvalid}
+            isRequired={isRequired}
             {...restProps}
           >
             {children}
