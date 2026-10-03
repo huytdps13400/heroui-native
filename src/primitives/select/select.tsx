@@ -226,9 +226,6 @@ const Trigger = forwardRef<TriggerRef, TriggerProps>(
     function onLayout(event: LayoutChangeEvent) {
       augmentedRef.current?.measure((_x, _y, width, height, pageX, pageY) => {
         setTriggerPosition({ width, pageX, pageY: pageY, height });
-        if (isDefaultOpen) {
-          onOpenChange(true);
-        }
       });
       onLayoutProp?.(event);
     }
