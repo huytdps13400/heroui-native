@@ -1,8 +1,8 @@
 import type BottomSheet from '@gorhom/bottom-sheet';
-import { createContext, forwardRef, useMemo } from 'react';
+import { createContext, forwardRef, useMemo, type ReactNode } from 'react';
 import type { GestureResponderEvent, Text as RNText } from 'react-native';
 import { Pressable, StyleSheet, useWindowDimensions, View } from 'react-native';
-import Animated, { FadeOut } from 'react-native-reanimated';
+import Animated, { FadeOut, type SharedValue } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useThemeColor } from '../../helpers/external/hooks';
 import { cn } from '../../helpers/external/utils';
@@ -52,6 +52,7 @@ import type {
   MenuItemDescriptionProps,
   MenuItemIndicatorProps,
   MenuItemProps,
+  MenuItemRenderProps,
   MenuItemTitleProps,
   MenuLabelProps,
   MenuOverlayProps,
@@ -559,6 +560,25 @@ const MenuGroup = forwardRef<MenuPrimitivesTypes.GroupRef, MenuGroupProps>(
 
 // --------------------------------------------------
 
+/**
+ * Calls a render-function `children` from inside the primitive item, so it
+ * receives the item's resolved state (including the selection and disabled
+ * state coming from a parent Menu.Group) instead of the raw Menu.Item props.
+ */
+const MenuItemRenderChildren = ({
+  children,
+  isPressed,
+}: {
+  children: (props: MenuItemRenderProps) => ReactNode;
+  isPressed: SharedValue<boolean>;
+}) => {
+  const { isSelected, isDisabled, variant } = useMenuItem();
+
+  return children({ isSelected, isDisabled, isPressed, variant });
+};
+
+// --------------------------------------------------
+
 const MenuItemComponent = forwardRef<
   MenuPrimitivesTypes.ItemRef,
   MenuItemProps
@@ -593,8 +613,6 @@ const MenuItemComponent = forwardRef<
       className,
     });
 
-    const isSelected = props.isSelected ?? false;
-
     const handlePressIn = (event: GestureResponderEvent) => {
       animationOnPressIn();
       onPressIn?.(event);
@@ -606,14 +624,13 @@ const MenuItemComponent = forwardRef<
     };
 
     const resolvedChildren =
-      typeof children === 'function'
-        ? children({
-            isSelected,
-            isDisabled,
-            isPressed,
-            variant,
-          })
-        : children;
+      typeof children === 'function' ? (
+        <MenuItemRenderChildren isPressed={isPressed}>
+          {children}
+        </MenuItemRenderChildren>
+      ) : (
+        children
+      );
 
     const stringifiedChildren =
       typeof children !== 'function' ? childrenToString(children) : null;
