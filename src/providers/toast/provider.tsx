@@ -61,14 +61,14 @@ function mergeToastConfig(
 /**
  * Creates a component function for simple string toast
  */
-function createStringToastComponent(
+export function createStringToastComponent(
   label: string,
   globalConfig: ToastGlobalConfig | undefined
 ): (props: ToastComponentProps) => React.ReactElement {
   return (props: ToastComponentProps) => {
-    const mergedConfig = mergeToastConfig(globalConfig, {
-      variant: 'default',
-    });
+    // A string toast has no local overrides, so the global defaults apply
+    // as-is (the toast itself falls back to the `default` variant)
+    const mergedConfig = mergeToastConfig(globalConfig, {});
     return (
       <DefaultToast
         {...props}
@@ -85,7 +85,7 @@ function createStringToastComponent(
 /**
  * Creates a component function for config-based toast
  */
-function createConfigToastComponent(
+export function createConfigToastComponent(
   config: ToastShowConfig,
   globalConfig: ToastGlobalConfig | undefined
 ): (props: ToastComponentProps) => React.ReactElement {
