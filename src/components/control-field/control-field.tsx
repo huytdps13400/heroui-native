@@ -34,6 +34,7 @@ const ControlField = forwardRef<PressableRef, ControlFieldProps>(
       isDisabled = false,
       isInvalid = false,
       isRequired = false,
+      onPress,
       onPressIn,
       onPressOut,
       animation,
@@ -72,10 +73,10 @@ const ControlField = forwardRef<PressableRef, ControlFieldProps>(
     const handlePress = (e: GestureResponderEvent) => {
       if (!isDisabled && onSelectedChange && isSelected !== undefined) {
         onSelectedChange(!isSelected);
+      }
 
-        if (props.onPress && typeof props.onPress === 'function') {
-          props.onPress(e);
-        }
+      if (onPress && typeof onPress === 'function') {
+        onPress(e);
       }
     };
 
