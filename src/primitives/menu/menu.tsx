@@ -148,7 +148,7 @@ const Trigger = forwardRef<TriggerRef, TriggerProps>(
 
     const { width: windowWidth, height: windowHeight } = useWindowDimensions();
 
-    const isDisabledValue = isDisabled ?? isDisabledRoot ?? undefined;
+    const isDisabledValue = isDisabled || isDisabledRoot;
 
     const augmentedRef = useAugmentedRef({
       ref,

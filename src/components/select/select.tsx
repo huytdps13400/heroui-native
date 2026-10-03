@@ -210,6 +210,7 @@ const SelectTrigger = forwardRef<
       <SelectPrimitives.Trigger
         ref={ref}
         className={triggerClassName}
+        isDisabled={isDisabledProp}
         {...props}
       >
         {backgroundElement == null ? (

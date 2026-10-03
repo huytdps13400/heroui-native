@@ -113,7 +113,7 @@ const Trigger = forwardRef<TriggerRef, TriggerProps>(
       presentation,
     } = useRootContext();
 
-    const isDisabledValue = isDisabled ?? isDisabledRoot ?? undefined;
+    const isDisabledValue = isDisabled || isDisabledRoot;
     const { width: windowWidth, height: windowHeight } = useWindowDimensions();
 
     const augmentedRef = useAugmentedRef({
