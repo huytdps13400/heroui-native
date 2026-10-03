@@ -257,6 +257,7 @@ const SearchFieldClearButton = forwardRef<View, SearchFieldClearButtonProps>(
         hitSlop={8}
         accessibilityRole="button"
         accessibilityLabel="Clear search"
+        isDisabled={searchField?.isDisabled ?? false}
         onPress={handlePress}
         {...restProps}
       >
