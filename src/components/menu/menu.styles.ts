@@ -120,6 +120,10 @@ export const menuClassNames = combineStyles({
 });
 
 export const menuStyleSheet = StyleSheet.create({
+  popoverWrapper: {
+    // Preserve the transform origin of the previously zero-height wrapper.
+    transformOrigin: 'top',
+  },
   borderCurve: {
     borderCurve: 'continuous',
   },

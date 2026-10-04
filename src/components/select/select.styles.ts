@@ -164,6 +164,9 @@ export const selectClassNames = combineStyles({
 });
 
 export const selectStyleSheet = StyleSheet.create({
+  popoverWrapper: {
+    transformOrigin: 'top',
+  },
   contentContainer: {
     borderCurve: 'continuous',
   },

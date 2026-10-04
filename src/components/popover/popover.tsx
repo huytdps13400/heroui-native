@@ -314,6 +314,7 @@ const PopoverContentPopover = forwardRef<
         <PopoverContentContext value={{ placement }}>
           <Animated.View
             exiting={exiting}
+            style={[StyleSheet.absoluteFill, popoverStyleSheet.popoverWrapper]}
             collapsable={false}
             pointerEvents="box-none"
           >

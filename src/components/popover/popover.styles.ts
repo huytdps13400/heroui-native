@@ -102,6 +102,9 @@ export const popoverClassNames = combineStyles({
 });
 
 export const popoverStyleSheet = StyleSheet.create({
+  popoverWrapper: {
+    transformOrigin: 'top',
+  },
   contentContainer: {
     borderCurve: 'continuous',
   },
